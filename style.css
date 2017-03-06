@@ -1,0 +1,30 @@
+body{
+	background-color: White;
+}
+
+#title{
+	text-align: center;
+	padding: 20px 20px 20px 20px;
+	font-weight: bold;
+	font-size: 56px;
+	color: White;
+	text-shadow: 4px 3px SteelBlue;
+	background-color: Navy;
+}
+
+form{
+	width: auto;
+}
+
+#addTrainBox, #trainTimes{
+	border: solid 4px SteelBlue;
+	padding: 10px;
+}
+
+h2{
+	font-weight: bold;
+}
+
+footer{
+	text-align: center;
+}

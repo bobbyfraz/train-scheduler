@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en-us">
+<head>
+	<title>Train Scheduler</title>
+	<link rel="stylesheet" type="text/css" href="reset.css">
+	<link rel="stylesheet" type="text/css" href="style.css">
+	<link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+	<script type="text/javascript" src="https://code.jquery.com/jquery-3.1.1.js" integrity="sha256-16cdPddA6VdVInumRGo6IbivbERE8p7CQR3HzTBuELA=" crossorigin="anonymous"></script>
+	<script src="https://www.gstatic.com/firebasejs/3.7.0/firebase.js"></script>
+</head>
+<body class="container">
+	<div class="row" id="title">
+		Train Times!
+	</div>
+	<br>
+	<div class="row" id="trainTimes">
+		<h2>Current Train Schedule</h2>
+	<div id = "trainTimesInside">
+			
+	</div>
+	</div>
+	<br>
+	<div class="row" id="addTrainBox">
+		<form id="trainParameters">
+			<h2>Add A Train!</h2>
+			<label>Train Name:</label>
+			<br>
+			<input type="text" class="form-control" id="trainName">
+			<br>
+			<label>Destination:</label>
+			<br>
+			<input type="text" class="form-control" id="destination">
+			<br>
+			<label>First Train Time (HH:mm - military time):</label>
+			<br>
+			<input type="text" class="form-control" id="firstTime">
+			<br>
+			<label>Frequency (in minutes):</label>
+			<br>
+			<input type="text" class="form-control" id="frequency">
+			<br>
+			<button type="button" class="btn btn-primary" id = "submitButton">
+				<span class="glyphicon glyphicon-search"></span>  Submit
+			</button>
+			<button type="button" class="btn btn-primary" id = "clearButton">
+				<span class="glyphicon glyphicon-remove-circle"></span>  Clear Results
+			</button>
+		</form>
+	</div>
+	<br>
+</body>
+
+<br>
+<footer>
+	<h4>Copyright @BobbyFraz 2017</h4>
+</footer>
+<br>
+
+<script type="text/javascript" src="app.js"></script>
+
+</html>
