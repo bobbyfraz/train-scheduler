@@ -16,12 +16,8 @@ form{
 	width: auto;
 }
 
-#addTrainBox, #trainTimes{
-	border: solid 4px SteelBlue;
-	padding: 10px;
-}
-
 h2{
+	text-align: center;
 	font-weight: bold;
 }
 
