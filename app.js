@@ -29,10 +29,10 @@ $("#add-train-button").on("click", function(event){
 		frequency: trainFrequency
 	};
 	database.ref().push(newTrain);
-	console.log(newTrain.trainName);
-	console.log(newTrain.trainDestination);
-	console.log(newTrain.trainFirstTime);
-	console.log(newTrain.trainFrequency);
+//	console.log(newTrain.trainName);
+//	console.log(newTrain.trainDestination);
+//	console.log(newTrain.trainFirstTime);
+//	console.log(newTrain.trainFrequency);
 
 //	alert("Train successfully added!")
 	$("#train-name-input").val("");
@@ -55,11 +55,11 @@ database.ref().on("child_added", function(childSnapshot, prevChildKey){
 	console.log(trainFirstTime);
 	console.log(trainFrequency);
 
-	var trainStartTime = moment(trainFirstTime, "HH:mm").subtract(1, "years");
+	var trainStartTime = moment(trainFirstTime, "X").subtract(1, "years");
 	var diffTime = moment().diff(moment(trainStartTime), "minutes");
 	var timeRemaining = diffTime % trainFrequency;
 	var minutesAway = trainFrequency - timeRemaining;
-	var nextTrainTime = moment().add(minutesAway, "minutes");
+	var nextTrainTime = moment().add(minutesAway, "minutes").format("HH:mm");
 	console.log(trainStartTime);
 	console.log(diffTime);
 	console.log(timeRemaining);
