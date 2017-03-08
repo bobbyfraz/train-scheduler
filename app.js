@@ -10,18 +10,17 @@ var config = {
 firebase.initializeApp(config);
 
 var database = firebase.database();
-
 var currentTime = moment();
+
 $("#currentTime").html("The Current Time is: " + moment(currentTime).format("HH:mm"));
 console.log("The Current Time is: " + moment(currentTime).format("HH:mm"));
 
-
 $("#add-train-button").on("click", function(event){
 	event.preventDefault();
-	var trainName = $("#train-name-input").val().trin();
-	var trainDestination = $("#destination-input").val().trin();
+	var trainName = $("#train-name-input").val().trim();
+	var trainDestination = $("#destination-input").val().trim();
 	var trainFirstTime = moment($("#first-time-input").val().trim(), "HH:mm").format("X");
-	var trainFrequency = $("#frequency-input").val().trin();
+	var trainFrequency = $("#frequency-input").val().trim();
 
 	var newTrain = {
 		train: trainName,
@@ -51,26 +50,26 @@ database.ref().on("child_added", function(childSnapshot, prevChildKey){
 	var trainDestination = childSnapshot.val().destination;
 	var trainFirstTime = childSnapshot.val().firstTime;
 	var trainFrequency = childSnapshot.val().frequency;
-
 	console.log(trainName);
 	console.log(trainDestination);
 	console.log(trainFirstTime);
 	console.log(trainFrequency);
 
-	var trainStartTime = moment.unix(trainFirstTime).format("HH:mm");
-// Calculate the months worked using hardcore math
-// To calculate the months worked
-	var nextTrainTime = moment().diff(moment.unix(trainFirstTime, "X"), "months");
-	console.log(nextTrainTime);
-// Calculate the total billed rate
-	var minutesAway = empMonths * empRate;
+	var trainStartTime = moment(trainFirstTime, "HH:mm").subtract(1, "years");
+	var diffTime = moment().diff(moment(trainStartTime), "minutes");
+	var timeRemaining = diffTime % trainFrequency;
+	var minutesAway = trainFrequency - timeRemaining;
+	var nextTrainTime = moment().add(minutesAway, "minutes");
+	console.log(trainStartTime);
+	console.log(diffTime);
+	console.log(timeRemaining);
 	console.log(minutesAway);
-// Add each train's data into the table
-	$("#employee-table > tbody").append("<tr><td>" + trainName + "</td><td>" + trainDestination + "</td><td>" +
-	trainFrequency + "</td><td>" + empMonths + "</td><td>" + empRate + "</td><td>" + empBilled + "</td></tr>");
+	console.log(nextTrainTime);
+
+	$("#trainTable > tbody").append("<tr><td>" + trainName + "</td><td>" + trainDestination + "</td><td>" +
+	trainFrequency + "</td><td>" + nextTrainTime + "</td><td>" + minutesAway + "</td></tr>");
 });
 
-//list current time
 //update times of pre-listed trains
 //create functionality for 
 //check new york times file and time sheet logic file as a reference 
