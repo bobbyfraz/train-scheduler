@@ -12,14 +12,17 @@ firebase.initializeApp(config);
 var database = firebase.database();
 var currentTime = moment();
 
-$("#currentTime").html("The Current Time is: " + moment(currentTime).format("HH:mm"));
-console.log("The Current Time is: " + moment(currentTime).format("HH:mm"));
+$("#currentTime").html("The Current Time is: " + moment(currentTime).format("hh:mm A"));
+console.log("The Current Time is: " + moment(currentTime).format("hh:mm A"));
+
+var audio = new Audio(href="train-sound.mp3");
 
 $("#add-train-button").on("click", function(event){
 	event.preventDefault();
+	audio.play();
 	var trainName = $("#train-name-input").val().trim();
 	var trainDestination = $("#destination-input").val().trim();
-	var trainFirstTime = moment($("#first-time-input").val().trim(), "HH:mm").format("X");
+	var trainFirstTime = moment($("#first-time-input").val().trim(), "hh:mm A").format("X");
 	var trainFrequency = $("#frequency-input").val().trim();
 
 	var newTrain = {
@@ -29,12 +32,7 @@ $("#add-train-button").on("click", function(event){
 		frequency: trainFrequency
 	};
 	database.ref().push(newTrain);
-//	console.log(newTrain.trainName);
-//	console.log(newTrain.trainDestination);
-//	console.log(newTrain.trainFirstTime);
-//	console.log(newTrain.trainFrequency);
 
-//	alert("Train successfully added!")
 	$("#train-name-input").val("");
 	$("#destination-input").val("");
 	$("#first-time-input").val("");
@@ -50,27 +48,25 @@ database.ref().on("child_added", function(childSnapshot, prevChildKey){
 	var trainDestination = childSnapshot.val().destination;
 	var trainFirstTime = childSnapshot.val().firstTime;
 	var trainFrequency = childSnapshot.val().frequency;
-	console.log(trainName);
-	console.log(trainDestination);
-	console.log(trainFirstTime);
-	console.log(trainFrequency);
 
 	var trainStartTime = moment(trainFirstTime, "X").subtract(1, "years");
 	var diffTime = moment().diff(moment(trainStartTime), "minutes");
 	var timeRemaining = diffTime % trainFrequency;
 	var minutesAway = trainFrequency - timeRemaining;
-	var nextTrainTime = moment().add(minutesAway, "minutes").format("HH:mm");
-	console.log(trainStartTime);
-	console.log(diffTime);
-	console.log(timeRemaining);
-	console.log(minutesAway);
-	console.log(nextTrainTime);
+	var nextTrainTime = moment().add(minutesAway, "minutes").format("hh:mm A");
+	console.log("trainStartTime: " + trainStartTime);
+	console.log("diffTime: " + diffTime);
+	console.log("timeRemaining: " + timeRemaining);
+	console.log("minutesAway: " + minutesAway);
+	console.log("nextTrainTime: " + nextTrainTime);
 
 	$("#trainTable > tbody").append("<tr><td>" + trainName + "</td><td>" + trainDestination + "</td><td>" +
-	trainFrequency + "</td><td>" + nextTrainTime + "</td><td>" + minutesAway + "</td></tr>");
+	trainFrequency + " (min)" + "</td><td>" + nextTrainTime + "</td><td>" + minutesAway + " (min)" +
+	 "</td><td type='button' id='remove' class='btn btn-warning'><span class='glyphicon glyphicon-remove' aria-hidden='true'></td></tr>");
 });
 
-//update times of pre-listed trains
-//create functionality for 
-//check new york times file and time sheet logic file as a reference 
-//add train sound when add train button is clicked 
+$("#remove").on("click", function(){
+	remove();
+});
+
+//add place holders to form
