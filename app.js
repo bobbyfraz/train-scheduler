@@ -65,8 +65,6 @@ database.ref().on("child_added", function(childSnapshot, prevChildKey){
 	 "</td><td type='button' id='remove' class='btn btn-warning'><span class='glyphicon glyphicon-remove' aria-hidden='true'></td></tr>");
 });
 
-$("#remove").on("click", function(){
-	remove();
+$("body").on("click", ".remove", function() {
+    remove(); 
 });
-
-//add place holders to form
